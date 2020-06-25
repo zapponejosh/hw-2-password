@@ -7,8 +7,7 @@ var includeUpperCase = false;
 var lowerChars = "abcdefghijklmnopqrstuvwxyz";
 var upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numChars = "0123456789";
-var symbolChars = "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
-var userPassword = [];
+var symbolChars = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
 function userCriteria() {
     numOfChar = prompt("How many characters would you like your password? ");
@@ -19,33 +18,57 @@ function userCriteria() {
     includeSpecialChar = confirm("Would you like to include special characters? ");
     includeNum = confirm("Would you like to include numbers? ");
     includeUpperCase = confirm("Would you like to include uppercase letters? ")
-    console.log(numOfChar);
-    console.log(includeSpecialChar);
-    console.log(includeNum);
-    console.log(includeUpperCase);
-    
-    function createSet() {
-        if (includeNum && includeSpecialChar && includeUpperCase) {
-            var charSet = lowerChars.concat(numChars,symbolChars,upperChars).split("");
-            console.log(charSet);
-            var setLength = charSet.length;
-            console.log(setLength);
-            for (var i = 0; i < numOfChar; i++) {
-                var randomIndex = Math.floor(Math.random() * setLength);
-                var chosenChar = charSet[randomIndex];
-                userPassword.push(chosenChar);
-                
-            }
-        else if (includeNum)
-        }
-
-    }
-
-    
-    // Turn userPassword array into string
-    userPassword = userPassword.join("");
+    // console.log(numOfChar);
+    // console.log(includeSpecialChar);
+    // console.log(includeNum);
+    // console.log(includeUpperCase);
 }
 
-userCriteria();
-console.log(userPassword);
+function createSet() {
+    userCriteria();
+    var charSet = '';
+    if (includeNum && includeSpecialChar && includeUpperCase) {
+        charSet = lowerChars.concat(numChars,symbolChars,upperChars).split("");
+    }
+    else if (includeNum && includeSpecialChar && includeUpperCase === false) {
+        charSet = lowerChars.concat(numChars,symbolChars).split("");
+    }
+    else if (includeNum && includeSpecialChar === false && includeUpperCase === false) {
+        charSet = lowerChars.concat(numChars).split("");
+    }
+    else if (includeNum && includeSpecialChar === false && includeUpperCase) {
+        charSet = lowerChars.concat(numChars,upperChars).split("");
+    }
+    else if (includeNum === false && includeSpecialChar && includeUpperCase) {
+        charSet = lowerChars.concat(symbolChars,upperChars).split("");
+    }
+    else if (includeNum === false && includeSpecialChar === false && includeUpperCase) {
+        charSet = lowerChars.concat(upperChars).split("");
+    }
+    else if (includeNum === false && includeSpecialChar && includeUpperCase === false) {
+        charSet = lowerChars.concat(symbolChars).split("");
+    }
+    else {
+        charSet = lowerChars;
+    }
+    // console.log(charSet);
+    return charSet;
+}
 
+function generatePassword() {
+    var charSet = createSet();
+    var setLength = charSet.length;
+    var userPassword = [];
+    // console.log(setLength);
+    for (var i = 0; i < numOfChar; i++) {
+        var randomIndex = Math.floor(Math.random() * setLength);
+        var chosenChar = charSet[randomIndex];
+        userPassword.push(chosenChar);
+    }
+    // Turn userPassword array into string
+    userPassword = userPassword.join("");
+    console.log(userPassword);
+}
+
+generatePassword();
+generatePassword();
