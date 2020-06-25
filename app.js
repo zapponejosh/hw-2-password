@@ -10,6 +10,7 @@ var numOfChar = 0;
 var includeSpecialChar = true;
 var includeNum = true;
 var includeUpperCase = false;
+var badCount = false;
 
 var lowerChars = "abcdefghijklmnopqrstuvwxyz";
 var upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -20,9 +21,10 @@ function userCriteria() {
     numOfChar = prompt("How many characters would you like your password? ");
     if (numOfChar < 8 || numOfChar > 128) {
         alert("Password must be between 8 and 128 characters.");
-        var badCount = true;
+        badCount = true;
         return;
     }
+    badCount = false;
     includeSpecialChar = confirm("Would you like to include special characters? ");
     includeNum = confirm("Would you like to include numbers? ");
     includeUpperCase = confirm("Would you like to include uppercase letters? ")
