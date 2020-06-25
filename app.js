@@ -1,3 +1,10 @@
+// Set event listeners
+var generateBtn = document.getElementById("generateBtn");
+generateBtn.addEventListener("click", generatePassword);
+var passwordDisplay = document.getElementById("passwordField");
+
+
+
 // set variables
 var numOfChar = 0;
 var includeSpecialChar = true;
@@ -13,6 +20,7 @@ function userCriteria() {
     numOfChar = prompt("How many characters would you like your password? ");
     if (numOfChar < 8 || numOfChar > 128) {
         alert("Password must be between 8 and 128 characters.");
+        var badCount = true;
         return;
     }
     includeSpecialChar = confirm("Would you like to include special characters? ");
@@ -57,6 +65,9 @@ function createSet() {
 
 function generatePassword() {
     var charSet = createSet();
+    if (badCount) {
+        return;
+    }
     var setLength = charSet.length;
     var userPassword = [];
     // console.log(setLength);
@@ -67,8 +78,7 @@ function generatePassword() {
     }
     // Turn userPassword array into string
     userPassword = userPassword.join("");
+    passwordDisplay.innerHTML = userPassword
     console.log(userPassword);
 }
 
-generatePassword();
-generatePassword();
