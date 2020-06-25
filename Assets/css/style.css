@@ -17,3 +17,12 @@
     padding: 15px;
     margin: 20px auto;
 }
+
+#passwordField {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    resize: none;
+    width: 100%;
+    text-align: center;
+}

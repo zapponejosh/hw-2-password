@@ -3,8 +3,19 @@ var generateBtn = document.getElementById("generateBtn");
 generateBtn.addEventListener("click", makePassword);
 var passwordDisplay = document.getElementById("passwordField");
 
+copyBtn.addEventListener("click", copyPassword);
 
 
+function copyPassword() {
+    var range = document.createRange();
+                range.selectNode(document.getElementById("passwordField"));
+                window.getSelection().removeAllRanges(); // clear current selection
+                window.getSelection().addRange(range); // to select text
+                document.execCommand("copy");
+                window.getSelection().removeAllRanges();// to deselect
+
+  alert("Copied the text: " + passwordDisplay.value);
+}
 
 
 function makePassword() {
@@ -30,7 +41,7 @@ function makePassword() {
     var charSet = createSet(includeNum, includeSpecialChar, includeUpperCase, numOfChar);
     var userPassword = generatePassword(charSet, numOfChar);
     
-    passwordDisplay.innerHTML = userPassword
+    passwordDisplay.innerHTML = userPassword;
     // console.log(userPassword);
     
 }
@@ -41,32 +52,13 @@ function createSet(includeNum, includeSpecialChar, includeUpperCase, numOfChar) 
     var upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var numChars = "0123456789";
     var symbolChars = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
-    
-    var charSet = '';
-    if (includeNum && includeSpecialChar && includeUpperCase) {
-        charSet = lowerChars.concat(numChars,symbolChars,upperChars).split("");
-    }
-    else if (includeNum && includeSpecialChar && includeUpperCase === false) {
-        charSet = lowerChars.concat(numChars,symbolChars).split("");
-    }
-    else if (includeNum && includeSpecialChar === false && includeUpperCase === false) {
-        charSet = lowerChars.concat(numChars).split("");
-    }
-    else if (includeNum && includeSpecialChar === false && includeUpperCase) {
-        charSet = lowerChars.concat(numChars,upperChars).split("");
-    }
-    else if (includeNum === false && includeSpecialChar && includeUpperCase) {
-        charSet = lowerChars.concat(symbolChars,upperChars).split("");
-    }
-    else if (includeNum === false && includeSpecialChar === false && includeUpperCase) {
-        charSet = lowerChars.concat(upperChars).split("");
-    }
-    else if (includeNum === false && includeSpecialChar && includeUpperCase === false) {
-        charSet = lowerChars.concat(symbolChars).split("");
-    }
-    else {
-        charSet = lowerChars;
-    }
+
+    var charSet = [
+        lowerChars,
+        includeUpperCase ? upperChars : "",
+        includeNum ? numChars : "",
+        includeSpecialChar ? symbolChars : ""
+    ].join("");
     // console.log(charSet);
     return charSet;
 }
