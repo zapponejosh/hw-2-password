@@ -11,7 +11,9 @@
 }
 
 .password-box {
-    width: 50%;
+    width: 80%;
+    max-width: 500px;
+    min-width: 200px;
     min-height: 200px;
     border: 1px dashed white;
     padding: 15px;
@@ -26,3 +28,13 @@
     width: 100%;
     text-align: center;
 }
+
+button {
+    margin: 10px;
+}
+
+@media all and (max-width: 500px) {
+    .card {
+      width: 100%;
+    }
+  }
