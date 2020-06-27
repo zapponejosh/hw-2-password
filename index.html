@@ -19,7 +19,26 @@
             <h4 class="card-title">Generate a password!</h4>
             <p class="card-text">Ready? Click Generate to begin</p>
             <div class="password-box">
-                <textarea disabled id="passwordField">here will be the generated password.</textarea>
+                <textarea disabled rows="6" id="passwordField">here will be the generated password.</textarea>
+            </div>
+            <div class="justify-content-center">
+                <p>*By default password is lowercase letters.</p>
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-dark">Include Caps
+                            <input type="checkbox" name="" id="capsCheck" autocomplete="off">
+                        </label>
+                        <label class="btn btn-dark">Include Numbers
+                            <input type="checkbox" name="" id="numCheck" autocomplete="off">
+                        </label>
+                        <label class="btn btn-dark">Include Symbols
+                            <input type="checkbox" name="" id="symCheck" autocomplete="off">
+                        </label>
+                    </div>
+            </div>
+            <div class="justify-content-center">
+                <label for="">Number of Characters
+                    <input type="number" id="numChoice">
+                </label>
             </div>
             <div class="justify-content-center">
                 <button id="generateBtn" type="button" class="btn btn-light">Generate</button>

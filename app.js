@@ -6,6 +6,14 @@ var passwordDisplay = document.getElementById("passwordField");
 copyBtn.addEventListener("click", copyPassword);
 
 
+// password settings
+var numCheck = document.getElementById("numCheck");
+var symCheck = document.getElementById("symCheck");
+var capsCheck = document.getElementById("capsCheck");
+var charCount = document.getElementById("numChoice");
+
+
+
 function copyPassword() {
     var range = document.createRange();
                 range.selectNode(document.getElementById("passwordField"));
@@ -19,21 +27,41 @@ function copyPassword() {
 
 
 function makePassword() {
-    var numOfChar = 0;
-    var includeSpecialChar = true;
-    var includeNum = true;
+
+    var numOfChar = charCount.value;
+    var includeSpecialChar = false;
+    var includeNum = false;
     var includeUpperCase = false;
     var badCount = false;
-    numOfChar = prompt("How many characters would you like your password? ");
+
+    console.log(numOfChar);
+
+    // User selections
+    if (numCheck.checked === true) {
+        console.log(
+            "Num is checked");
+        includeNum = true;
+    }
+    if (symCheck.checked === true) {
+        console.log(
+            "Num is checked");
+        includeSpecialChar = true;
+    }
+    if (capsCheck.checked === true) {
+        console.log(
+            "Num is checked");
+        includeUpperCase = true;
+    }
+
+
+    // numOfChar = prompt("How many characters would you like your password? ");
     if (numOfChar < 8 || numOfChar > 128) {
         alert("Password must be between 8 and 128 characters.");
         badCount = true;
         return;
     }
     badCount = false;
-    includeSpecialChar = confirm("Would you like to include special characters? ");
-    includeNum = confirm("Would you like to include numbers? ");
-    includeUpperCase = confirm("Would you like to include uppercase letters? ")
+
     // console.log(numOfChar);
     // console.log(includeSpecialChar);
     // console.log(includeNum);
