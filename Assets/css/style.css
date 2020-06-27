@@ -1,4 +1,4 @@
-
+/* Holds password generator */
 .card {
     width: 80%;
     margin: 20px auto;
@@ -10,16 +10,23 @@
     width: 80%;
 }
 
+/* Emphasis on keyword in instructions */
+.call-out {
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Where the password appears after being generated */
 .password-box {
     width: 80%;
     max-width: 500px;
     min-width: 200px;
-    min-height: 200px;
     border: 1px dashed white;
     padding: 15px;
     margin: 20px auto;
 }
 
+/* the textarea that holds the password text. this makes it not look like a textarea */
 #passwordField {
     background-color: transparent;
     border: 0;
@@ -29,10 +36,12 @@
     text-align: center;
 }
 
+/* Adds spacing around buttons */
 button {
     margin: 10px;
 }
 
+/* Adds a tiny bit of responsiveness to make it look better on mobile */
 @media all and (max-width: 500px) {
     .card {
       width: 100%;

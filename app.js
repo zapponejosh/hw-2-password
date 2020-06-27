@@ -1,19 +1,12 @@
-// Set event listeners
+// Set event listeners on buttons
 var generateBtn = document.getElementById("generateBtn");
-generateBtn.addEventListener("click", makePassword);
 var passwordDisplay = document.getElementById("passwordField");
 
-copyBtn.addEventListener("click", copyPassword);
+// Calls main function
+generateBtn.addEventListener("click", makePassword);
 
 
-// password settings
-var numCheck = document.getElementById("numCheck");
-var symCheck = document.getElementById("symCheck");
-var capsCheck = document.getElementById("capsCheck");
-var charCount = document.getElementById("numChoice");
-
-
-
+//Copies password to clipboard
 function copyPassword() {
     var range = document.createRange();
                 range.selectNode(document.getElementById("passwordField"));
@@ -21,60 +14,44 @@ function copyPassword() {
                 window.getSelection().addRange(range); // to select text
                 document.execCommand("copy");
                 window.getSelection().removeAllRanges();// to deselect
-
-  alert("Copied the text: " + passwordDisplay.value);
+    alert("Copied the text: " + passwordDisplay.value);
 }
 
-
+// Called by Generate btn click
 function makePassword() {
-
+    // Get user password settings choices
+    var charCount = document.getElementById("numChoice");
     var numOfChar = charCount.value;
-    var includeSpecialChar = false;
-    var includeNum = false;
-    var includeUpperCase = false;
-    var badCount = false;
-
-    console.log(numOfChar);
-
-    // User selections
-    if (numCheck.checked === true) {
-        console.log(
-            "Num is checked");
-        includeNum = true;
-    }
-    if (symCheck.checked === true) {
-        console.log(
-            "Num is checked");
-        includeSpecialChar = true;
-    }
-    if (capsCheck.checked === true) {
-        console.log(
-            "Num is checked");
-        includeUpperCase = true;
-    }
-
-
-    // numOfChar = prompt("How many characters would you like your password? ");
-    if (numOfChar < 8 || numOfChar > 128) {
-        alert("Password must be between 8 and 128 characters.");
-        badCount = true;
-        return;
-    }
-    badCount = false;
+    // console.log(numOfChar);
+    var includeNum = document.getElementById("numCheck");
+    var includeSpecialChar = document.getElementById("symCheck");
+    var includeUpperCase = document.getElementById("capsCheck");
 
     // console.log(numOfChar);
-    // console.log(includeSpecialChar);
-    // console.log(includeNum);
-    // console.log(includeUpperCase);
-    var charSet = createSet(includeNum, includeSpecialChar, includeUpperCase, numOfChar);
+    // console.log(includeSpecialChar.checked);
+    // console.log(includeNum.checked);
+    // console.log(includeUpperCase.checked);
+
+    // Validate character count
+    if (numOfChar < 8 || numOfChar > 128) {
+        alert("Password must be between 8 and 128 characters.");
+        return;
+    }
+    
+    // Create character set given user setting choices
+    var charSet = createSet(includeNum, includeSpecialChar, includeUpperCase);
+    // Uses character set to generate password
     var userPassword = generatePassword(charSet, numOfChar);
     
     passwordDisplay.innerHTML = userPassword;
-    // console.log(userPassword);
+    // console.log(userPassword);   
     
+    // Cannot copy password until it has been generated
+    copyBtn.addEventListener("click", copyPassword);
 }
 
-function createSet(includeNum, includeSpecialChar, includeUpperCase, numOfChar) {
+// Called by makePassword function. 
+function createSet(includeNum, includeSpecialChar, includeUpperCase) {
     // character options
     var lowerChars = "abcdefghijklmnopqrstuvwxyz";
     var upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -83,21 +60,20 @@ function createSet(includeNum, includeSpecialChar, includeUpperCase, numOfChar) 
 
     var charSet = [
         lowerChars,
-        includeUpperCase ? upperChars : "",
-        includeNum ? numChars : "",
-        includeSpecialChar ? symbolChars : ""
+        includeUpperCase.checked ? upperChars : "",
+        includeNum.checked ? numChars : "",
+        includeSpecialChar.checked ? symbolChars : ""
     ].join("");
     // console.log(charSet);
     return charSet;
 }
 
+// Called by makePassword function aft character set is generated
 function generatePassword(charSet, numOfChar) {
-    // if (badCount) {
-    //     return;
-    // }
     var setLength = charSet.length;
     var userPassword = [];
     // console.log(setLength);
+    // Chooses random character from the character set. Outputs an array.
     for (var i = 0; i < numOfChar; i++) {
         var randomIndex = Math.floor(Math.random() * setLength);
         var chosenChar = charSet[randomIndex];
@@ -105,5 +81,6 @@ function generatePassword(charSet, numOfChar) {
     }
     // Turn userPassword array into string
     userPassword = userPassword.join("");
+
     return userPassword
 }
